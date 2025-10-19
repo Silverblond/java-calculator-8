@@ -25,11 +25,15 @@ public class StringCalculator {
 
         int sum = 0;
         for (String number : numbers) {
-            int num = Integer.parseInt(number); //문자 -> 숫자 변환
-            if (num < 0) {
-                throw new IllegalArgumentException("음수는 허용되지 않습니다: " + num); //여기도 임시, 나중에 핸들링 통합
+            try {
+                int num = Integer.parseInt(number); //문자 -> 숫자 변환
+                if (num < 0) {
+                    throw new IllegalArgumentException("음수는 허용되지 않습니다");
+                }
+                sum += num;
+            } catch (NumberFormatException e) {
+                throw new IllegalArgumentException("숫자 이외의 값은 입력할 수 없습니다.");
             }
-            sum += num;
         }
         return sum;
     }

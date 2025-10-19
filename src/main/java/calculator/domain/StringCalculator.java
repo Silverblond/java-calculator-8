@@ -9,7 +9,16 @@ public class StringCalculator {
         if (input == null || input.isEmpty()) {
             return 0; //나중에 에러 핸들링 추가
         }
-        String[] numbers = input.split(DEFAULT_DELIMITER);
+        String[] numbers;
+        if (input.startsWith("//")) {
+            int delimiterEndIndex = input.indexOf("\n");
+            String customDelimiter = input.substring(2,delimiterEndIndex);
+            String numbersPart = input.substring(delimiterEndIndex + 1);
+            numbers = numbersPart.split(customDelimiter);
+        }
+        else{
+            numbers = input.split(DEFAULT_DELIMITER);
+        }
 
         int sum = 0;
         for (String number : numbers) {

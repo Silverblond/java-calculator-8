@@ -12,6 +12,9 @@ public class StringCalculator {
         String[] numbers;
         if (input.startsWith("//")) {
             int delimiterEndIndex = input.indexOf("\n");
+            if (delimiterEndIndex == -1) {
+                throw new IllegalArgumentException("커스텀 구분자 형식이 올바르지 않습니다.");
+            }
             String customDelimiter = input.substring(2,delimiterEndIndex);
             String numbersPart = input.substring(delimiterEndIndex + 1);
             numbers = numbersPart.split(customDelimiter);

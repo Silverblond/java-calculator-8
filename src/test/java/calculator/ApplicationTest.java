@@ -23,6 +23,54 @@ class ApplicationTest extends NsTest {
                 .isInstanceOf(IllegalArgumentException.class)
         );
     }
+    //----------------추가 테스트----------------
+    @Test
+    void 기본_구분자_테스트() {
+        assertSimpleTest(() -> {
+            run("1,2,3");
+            assertThat(output()).contains("결과 : 6");
+        });
+    }
+
+    @Test
+    void 콜론_구분자_테스트() {
+        assertSimpleTest(() -> {
+            run("1:2:3");
+            assertThat(output()).contains("결과 : 6");
+        });
+    }
+
+    @Test
+    void 혼합_구분자_테스트() {
+        assertSimpleTest(() -> {
+            run("1,2:3");
+            assertThat(output()).contains("결과 : 6");
+        });
+    }
+
+    @Test
+    void 커스텀_구분자_복잡한_예제_첫번째() {
+        assertSimpleTest(() -> {
+            run("//;\\n1;2;3");
+            assertThat(output()).contains("결과 : 6");
+        });
+    }
+
+    @Test
+    void 커스텀_구분자_복잡한_예제_두번째() {
+        assertSimpleTest(() -> {
+            run("//<<\\n1<<2<<3");
+            assertThat(output()).contains("결과 : 6");
+        });
+    }
+
+    @Test
+    void 커스텀_구분자_복잡한_예제_세번재() {
+        assertSimpleTest(() -> {
+            run("//abcde\\n11abcde12abcde13");
+            assertThat(output()).contains("결과 : 36");
+        });
+    }
 
     @Override
     public void runMain() {
